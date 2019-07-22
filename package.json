@@ -4,8 +4,33 @@
   "description": "Client for channel scaner server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cross-env NODE_ENV=production LINT=true node ./node_modules/webpack/bin/webpack.js --config ./webpack.config.js --bail",
+    "dev": "concurrently --kill-others \"cross-env NODE_ENV=development webpack-dev-server --watch\" \"cross-env nodemon --inspect dev-server/server.js --intercept\""
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.4",
+    "body-parser": "^1.19.0",
+    "concurrently": "^4.1.1",
+    "copy-webpack-plugin": "^5.0.3",
+    "cross-env": "^5.2.0",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1",
+    "path": "^0.12.7",
+    "ts-loader": "^6.0.4",
+    "tslint": "^5.18.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-loader": "^3.5.4",
+    "typescript": "^3.5.3",
+    "webpack": "^4.36.1",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.7.2"
+  }
 }
