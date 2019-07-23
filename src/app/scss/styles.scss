@@ -1,0 +1,16 @@
+@mixin centerAll {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:global(.appRoot) {
+  @include centerAll;
+  flex-direction: column;
+}
+
+.appTitle {
+  @include centerAll;
+  padding: 16px;
+  font-size: 22px;
+}
