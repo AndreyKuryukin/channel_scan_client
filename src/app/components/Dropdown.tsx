@@ -18,7 +18,7 @@ class Dropdown extends React.PureComponent<DropdownProps> {
     private renderDropdownItems(selectItems: UnitOfMeasure[]): JSX.Element[] {
         return selectItems.map(item =>
             <span
-                key={item.value}
+                key={item.title}
                 onClick={() => {
                     this.props.onSelect(item);
                     this.props.toggle();
