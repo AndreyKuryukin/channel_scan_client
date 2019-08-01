@@ -3,9 +3,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: './src/app/app.tsx',
+  entry: {
+    app: './src/app/app.tsx',
+    // login: './src/app/modules/Login'
+  },
   output: {
-    filename: 'app.js',
+    filename: '[name].js',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],

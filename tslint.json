@@ -5,6 +5,7 @@
       true,
       4,
       { "SwitchCase": 1 }
-    ]
+    ],
+    "semicolon": [true, "always"]
   }
 }

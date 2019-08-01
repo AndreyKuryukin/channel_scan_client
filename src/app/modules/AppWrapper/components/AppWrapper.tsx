@@ -1,24 +1,21 @@
 import * as React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/icons/Menu';
+import SideMenu from './SideMenu';
+import TopBar from './TopBar';
 
 interface AppWrapperProps {
     title?: string;
 }
 
 interface AppWrapperState {
-    title: string,
+    title: string;
+    sideOpen: boolean;
 }
 
 export const AppWrapperContext = React.createContext({});
 
 export default class AppWrapper extends React.PureComponent<AppWrapperProps, AppWrapperState> {
 
-    readonly state: AppWrapperState = { title: '' };
+    readonly state: AppWrapperState = { title: '', sideOpen: false };
 
     setTitle = (title: string) => {
         this.setState({ title });
@@ -26,25 +23,26 @@ export default class AppWrapper extends React.PureComponent<AppWrapperProps, App
 
     readonly providedContext = {
         setTitle: this.setTitle,
-    }
+    };
+
+    toggleSideMenu = (e: React.SyntheticEvent) => {
+        this.setState({ sideOpen: !this.state.sideOpen });
+    };
 
     render() {
         return <React.Fragment>
-            <AppBar position="static">
-                <Toolbar variant="dense">
-                    <IconButton edge="start"
-                                color="inherit"
-                                aria-label="menu">
-                        <Menu/>
-                    </IconButton>
-                    <Typography variant="h6" color="inherit">
-                        {this.state.title}
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <AppWrapperContext.Provider value={this.providedContext}>
-                {this.props.children}
-            </AppWrapperContext.Provider>
+            <TopBar
+                sideMenuOpen={this.state.sideOpen}
+                toggleSideMenu={this.toggleSideMenu}
+            >
+                <AppWrapperContext.Provider value={this.providedContext}>
+                    {this.props.children}
+                </AppWrapperContext.Provider>
+            </TopBar>
+            <SideMenu
+                open={this.state.sideOpen}
+                toggle={this.toggleSideMenu}
+            />
         </React.Fragment>;
     }
 }
