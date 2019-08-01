@@ -3,6 +3,7 @@
     "sourceMap": true,
     "noImplicitAny": true,
     "target": "es6",
-    "jsx": "react"
+    "jsx": "react",
+    "moduleResolution": "node"
   }
 }

@@ -13,9 +13,13 @@ module.exports = {
   devtool: 'inline-source-map',
   module: {
     rules: [
-      {test: /\.ts(x)$/, use: 'ts-loader'},
       {
-        test: /\.ts(x)$/,
+        test: /\.(ts|tsx)$/,
+        use: 'ts-loader',
+        include: path.resolve(__dirname, 'src')
+      },
+      {
+        test: /\.(ts|tsx)$/,
         enforce: 'pre',
         use: [
           {
