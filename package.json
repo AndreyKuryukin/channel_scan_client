@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cross-env NODE_ENV=production LINT=true node ./node_modules/webpack/bin/webpack.js --config ./webpack.config.js --bail",
-    "dev": "concurrently --kill-others \"cross-env NODE_ENV=development webpack-dev-server --watch\" \"cross-env nodemon --inspect dev-server/server.js --intercept\""
+    "dev": "concurrently --kill-others \"cross-env NODE_ENV=development webpack-dev-server --watch\" \"cross-env nodemon dev-server/server.js --intercept\""
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +23,7 @@
     "react-router-dom": "^5.0.1"
   },
   "devDependencies": {
+    "@material-ui/styles": "^3.0.0-alpha.9",
     "@types/react": "^16.8.23",
     "@types/react-click-outside": "^3.0.3",
     "@types/react-dom": "^16.8.4",

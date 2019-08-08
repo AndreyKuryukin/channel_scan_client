@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Route as ReactRoute, Switch } from 'react-router-dom';
 
 import AppWrapper from '../modules/AppWrapper';
-// import Login from '../modules/Login';
 
 const e = React.createElement;
 const Lazy = React.lazy;
@@ -21,7 +20,7 @@ interface Route {
 const Routes: Route[] = [
     {
         urlPath: '/',
-        componentLoader: () => import(/*webpackChunkName: "modules/login"*/'../modules/Login'),
+        componentLoader: () => import(/*webpackChunkName:"modules/login"*/'../modules/Login'),
         uid: 'Login',
     },
 ];

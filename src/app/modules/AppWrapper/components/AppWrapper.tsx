@@ -1,9 +1,17 @@
 import * as React from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { useTheme } from '@material-ui/core/styles';
+
+import { useStyles } from './styles';
 import SideMenu from './SideMenu';
 import TopBar from './TopBar';
 
 interface AppWrapperProps {
     title?: string;
+}
+
+interface Theme {
+    classes?: any;
 }
 
 interface AppWrapperState {
@@ -13,7 +21,7 @@ interface AppWrapperState {
 
 export const AppWrapperContext = React.createContext({});
 
-export default class AppWrapper extends React.PureComponent<AppWrapperProps, AppWrapperState> {
+class AppWrapper extends React.PureComponent<AppWrapperProps & Theme, AppWrapperState> {
 
     readonly state: AppWrapperState = { title: '', sideOpen: false };
 
@@ -30,7 +38,9 @@ export default class AppWrapper extends React.PureComponent<AppWrapperProps, App
     };
 
     render() {
-        return <React.Fragment>
+        const { classes } = this.props;
+        return <div className={classes.root}>
+            <CssBaseline />
             <TopBar
                 sideMenuOpen={this.state.sideOpen}
                 toggleSideMenu={this.toggleSideMenu}
@@ -42,8 +52,19 @@ export default class AppWrapper extends React.PureComponent<AppWrapperProps, App
                 toggle={this.toggleSideMenu}
             />
             <AppWrapperContext.Provider value={this.providedContext}>
-                {this.props.children}
+                <main className={classes.content}>
+                    <div className={classes.toolbar} />
+                    {this.props.children}
+                </main>
             </AppWrapperContext.Provider>
-        </React.Fragment>;
+        </div>;
     }
 }
+
+const themeWraped: React.SFC<AppWrapperProps> = function themeWrapped(props) {
+    const theme = useTheme();
+    const classes = useStyles(theme);
+    return <AppWrapper {...props} classes={classes}/>;
+};
+
+export default themeWraped;
