@@ -9,7 +9,7 @@ ReactDOM.render(
     <React.Fragment>
         <BrowserRouter>
             <React.StrictMode>
-                <RootControler title={'HELLO'}/>
+                <RootControler title={'IPTV Channels scanner'}/>
             </React.StrictMode>
         </BrowserRouter>
     </React.Fragment>,

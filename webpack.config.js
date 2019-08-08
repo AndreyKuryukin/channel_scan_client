@@ -5,10 +5,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   entry: {
     app: './src/app/app.tsx',
-    // login: './src/app/modules/Login'
   },
   output: {
     filename: '[name].js',
+    chunkFilename: '[name].js'
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
@@ -86,6 +86,9 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'styles.css',
     }),
+  ],
+  externals: [
+      './login.js'
   ],
   devServer: {
     contentBase: path.join(__dirname, 'dist'),

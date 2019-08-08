@@ -35,14 +35,15 @@ export default class AppWrapper extends React.PureComponent<AppWrapperProps, App
                 sideMenuOpen={this.state.sideOpen}
                 toggleSideMenu={this.toggleSideMenu}
             >
-                <AppWrapperContext.Provider value={this.providedContext}>
-                    {this.props.children}
-                </AppWrapperContext.Provider>
+                {this.state.title}
             </TopBar>
             <SideMenu
                 open={this.state.sideOpen}
                 toggle={this.toggleSideMenu}
             />
+            <AppWrapperContext.Provider value={this.providedContext}>
+                {this.props.children}
+            </AppWrapperContext.Provider>
         </React.Fragment>;
     }
 }
