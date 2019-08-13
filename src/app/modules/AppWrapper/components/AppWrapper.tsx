@@ -1,8 +1,8 @@
 import * as React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useTheme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-import { useStyles } from './styles';
 import SideMenu from './SideMenu';
 import TopBar from './TopBar';
 
@@ -10,7 +10,7 @@ interface AppWrapperProps {
     title?: string;
 }
 
-interface Theme {
+interface Classes {
     classes?: any;
 }
 
@@ -21,7 +21,7 @@ interface AppWrapperState {
 
 export const AppWrapperContext = React.createContext({});
 
-class AppWrapper extends React.PureComponent<AppWrapperProps & Theme, AppWrapperState> {
+class AppWrapper extends React.PureComponent<AppWrapperProps & Classes, AppWrapperState> {
 
     readonly state: AppWrapperState = { title: '', sideOpen: false };
 
@@ -60,6 +60,25 @@ class AppWrapper extends React.PureComponent<AppWrapperProps & Theme, AppWrapper
         </div>;
     }
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            display: 'flex',
+        },
+        toolbar: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            padding: '0 8px',
+            ...theme.mixins.toolbar,
+        },
+        content: {
+            flexGrow: 1,
+            padding: theme.spacing(3),
+        },
+    }),
+);
 
 const themeWraped: React.SFC<AppWrapperProps> = function themeWrapped(props) {
     const theme = useTheme();
