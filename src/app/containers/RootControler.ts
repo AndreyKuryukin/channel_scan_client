@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Route as ReactRoute, Switch } from 'react-router-dom';
 
 import AppWrapper from '../modules/AppWrapper';
-// import Login from '../modules/Login';
+import Routes, { Route } from '../constants/modules';
 
 const e = React.createElement;
 const Lazy = React.lazy;
@@ -11,20 +11,6 @@ const Suspense = React.Suspense;
 interface RootControlerProps {
     title: string;
 }
-
-interface Route {
-    urlPath: string;
-    componentLoader: () => Promise<any>;
-    uid: string;
-}
-
-const Routes: Route[] = [
-    {
-        urlPath: '/',
-        componentLoader: () => import(/*webpackChunkName: "modules/login"*/'../modules/Login'),
-        uid: 'Login',
-    },
-];
 
 class RootControler extends React.PureComponent<RootControlerProps, never> {
 
