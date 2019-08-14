@@ -11,7 +11,7 @@ module.exports = {
     chunkFilename: '[name].js'
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.jpg'],
   },
   devtool: 'inline-source-map',
   module: {
@@ -76,7 +76,7 @@ module.exports = {
             },
           }
         ],
-      }
+      },
     ]
   },
   plugins: [
@@ -88,7 +88,7 @@ module.exports = {
     }),
   ],
   externals: [
-      './login.js'
+    './login.js'
   ],
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
