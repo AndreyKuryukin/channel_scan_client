@@ -2,7 +2,7 @@
 const useSecondary = false;
 
 type I18nMap<V> = {
-    [k: string]: V
+    [k: string]: V,
 };
 
 type TranslationKey = string;
@@ -13,20 +13,37 @@ export type LocalizerComposition = [
     TranslationKey, PrimaryValue, SecondaryValue
 ]
 
-export const ls = (key: TranslationKey, primaryValue: PrimaryValue, secondaryValue: SecondaryValue): () => string => {
-    return useSecondary ? () => secondaryValue : () => primaryValue;
-}
+type TranslationConstant = {
+    [k: string]: LocalizerComposition | TranslationConstant,
+};
 
-export const localizer = (map: I18nMap<LocalizerComposition>): I18nMap<string> => {
-    return Object.entries(map).reduce((acc, entry) => {
+export const ls = (
+    key: TranslationKey,
+    primaryValue: PrimaryValue,
+    secondaryValue: SecondaryValue): string => {
+    // return translationSrc[key]
+    return useSecondary ? secondaryValue : primaryValue;
+};
+
+export const la = (
+    key: TranslationKey,
+    primaryValue: PrimaryValue,
+    secondaryValue: SecondaryValue): () =>
+        string => () => ls(key, primaryValue, secondaryValue);
+
+export const lz = (map: TranslationConstant): TranslationConstant =>
+    Object.entries(map).reduce((acc, entry) => {
         const [key, value] = entry;
-        const [translationKey, primaryValue, secondaryValue] = value;
-        Object.defineProperty(acc, key, {
-            get: () => {
-                // return translationSrc[translationKey]
-                return useSecondary ? secondaryValue : primaryValue;
-            }
-        });
+        if (entry.length !== undefined) {
+            const [translationKey, primaryValue, secondaryValue] = value;
+            Object.defineProperty(acc, key, {
+                get: () => {
+                    // return translationSrc[translationKey]
+                    return useSecondary ? secondaryValue : primaryValue;
+                }
+            });
+        } else if (typeof entry === 'object') {
+            acc[key] = lz(entry);
+        }
         return acc;
     }, {});
-}
