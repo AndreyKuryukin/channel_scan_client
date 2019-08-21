@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import background from 'url-loader!../resources/loginBackground.jpg';
+import { TRANSLATIONS } from '../constants/translations';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -70,7 +71,7 @@ const Login: React.SFC<LoginCmpProps> = ({ login }) => {
             </Typography>
             <TextField
                 id="outlined-name"
-                label="Name"
+                label={TRANSLATIONS.LOGIN}
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
@@ -82,7 +83,7 @@ const Login: React.SFC<LoginCmpProps> = ({ login }) => {
             />
             <TextField
                 id="outlined-password-input"
-                label="Password"
+                label={TRANSLATIONS.PASSWORD}
                 className={classes.textField}
                 type="password"
                 autoComplete="current-password"
@@ -99,13 +100,13 @@ const Login: React.SFC<LoginCmpProps> = ({ login }) => {
                     variant="contained"
                     color="primary"
                     className={classes.loginButton}>
-                    Log in
+                    {TRANSLATIONS.BUTTON_TITLES.SIGN_IN}
                 </Button>
                 <Button
                     variant="contained"
                     color="default"
                     className={classes.signupButton}>
-                    Sign up
+                    {TRANSLATIONS.BUTTON_TITLES.SIGN_UP}
                 </Button>
             </div>
         </div>

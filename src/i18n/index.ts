@@ -1,20 +1,20 @@
 
 const useSecondary = false;
 
-type I18nMap<V> = {
-    [k: string]: V,
-};
-
 type TranslationKey = string;
 type PrimaryValue = string;
 type SecondaryValue = string;
 
 export type LocalizerComposition = [
     TranslationKey, PrimaryValue, SecondaryValue
-]
+];
 
-type TranslationConstant = {
-    [k: string]: LocalizerComposition | TranslationConstant,
+type Localizer = {
+    [k: string]: LocalizerComposition | Localizer,
+};
+
+type TranslationMap = {
+    [k: string]: string | TranslationMap | any,
 };
 
 export const ls = (
@@ -31,19 +31,20 @@ export const la = (
     secondaryValue: SecondaryValue): () =>
         string => () => ls(key, primaryValue, secondaryValue);
 
-export const lz = (map: TranslationConstant): TranslationConstant =>
-    Object.entries(map).reduce((acc, entry) => {
+export const lz = (map: Localizer): TranslationMap =>
+    Object.entries(map).reduce((acc: TranslationMap, entry) => {
         const [key, value] = entry;
-        if (entry.length !== undefined) {
-            const [translationKey, primaryValue, secondaryValue] = value;
+        if (value.isArray) {
+            const [translationKey, primaryValue, secondaryValue] = <LocalizerComposition>value;
             Object.defineProperty(acc, key, {
                 get: () => {
-                    // return translationSrc[translationKey]
-                    return useSecondary ? secondaryValue : primaryValue;
-                }
+                    return ls(translationKey, primaryValue, secondaryValue);
+                },
+                value: primaryValue,
             });
-        } else if (typeof entry === 'object') {
-            acc[key] = lz(entry);
+        } else if (typeof value === 'object') {
+            acc[key] = lz(<Localizer>value);
         }
         return acc;
+        // tslint:disable-next-line: align
     }, {});
