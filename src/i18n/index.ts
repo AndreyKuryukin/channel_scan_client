@@ -31,20 +31,21 @@ export const la = (
     secondaryValue: SecondaryValue): () =>
         string => () => ls(key, primaryValue, secondaryValue);
 
-export const lz = (map: Localizer): TranslationMap =>
-    Object.entries(map).reduce((acc: TranslationMap, entry) => {
-        const [key, value] = entry;
+export const lz = (map: Localizer): TranslationMap => {
+    return Object.entries(map).reduce((acc: TranslationMap, entry) => {
+        const [constKey, value] = entry;
         if (value.isArray) {
             const [translationKey, primaryValue, secondaryValue] = <LocalizerComposition>value;
-            Object.defineProperty(acc, key, {
+            Object.defineProperty(acc, constKey, {
                 get: () => {
                     return ls(translationKey, primaryValue, secondaryValue);
                 },
-                value: primaryValue,
+                //  value: 'sdsd',
             });
         } else if (typeof value === 'object') {
-            acc[key] = lz(<Localizer>value);
+            acc[constKey] = lz(<Localizer>value);
         }
         return acc;
         // tslint:disable-next-line: align
     }, {});
+}
