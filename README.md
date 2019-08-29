@@ -1,4 +1,4 @@
-# test-task
+# TV list client
 Команды для запуска:
 
 npm i &
