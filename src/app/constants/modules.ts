@@ -13,7 +13,7 @@ const Routes: Module[] = [
         uid: 'Login',
         sideMenu: false,
         topBar: false
-    },
+    }
 ];
 
 export default Routes;

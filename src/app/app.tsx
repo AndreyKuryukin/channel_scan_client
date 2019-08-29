@@ -8,12 +8,12 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import RootControler from './containers/RootControler';
 
 const theme = createMuiTheme({
-        palette: {
-            primary: {
-                main: '#1dc21d',
-                contrastText: '#ffffff'
-            },
+    palette: {
+        primary: {
+            main: '#1dc21d',
+            contrastText: '#ffffff',
         },
+    },
 });
 
 ReactDOM.render(
